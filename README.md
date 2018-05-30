@@ -1,0 +1,6 @@
+[![Build Status](https://travis-ci.org/bootique/bootique-swagger.svg)](https://travis-ci.org/bootique/bootique-aws)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.bootique.aws/bootique-aws/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.bootique.aws/bootique-aws/)
+
+# bootique-aws
+
+Integration of [Amazon Java SDK](http://swagger.io/) libraries with Bootique. Allows to configure Amazon access using standard Bootique facilities and obtain client objects for various Amazon services via injection.
