@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/bootique/bootique-swagger.svg)](https://travis-ci.org/bootique/bootique-aws)
+[![Build Status](https://travis-ci.org/bootique/bootique-aws.svg)](https://travis-ci.org/bootique/bootique-aws)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.bootique.aws/bootique-aws/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.bootique.aws/bootique-aws/)
 
 # bootique-aws
