@@ -3,4 +3,4 @@
 
 # bootique-aws
 
-Integration of [Amazon Java SDK](http://swagger.io/) libraries with Bootique. Allows to configure Amazon access using standard Bootique facilities and obtain client objects for various Amazon services via injection.
+Integration of [Amazon Java SDK](https://aws.amazon.com/sdk-for-java/) libraries with Bootique. Allows to configure Amazon access using standard Bootique facilities and obtain client objects for various Amazon services via injection.
