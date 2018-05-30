@@ -1,0 +1,36 @@
+language: java
+
+jobs:
+  include:
+    - stage: build
+      if: branch != master OR type IN (pull_request)
+      jdk: oraclejdk9
+      script:
+        - mvn clean verify
+    - stage: build
+      if: branch != master OR type IN (pull_request)
+      jdk: oraclejdk8
+      script:
+        - mvn clean verify
+    - stage: build
+      if: branch = master AND type IN (push)
+      jdk: oraclejdk9
+      script:
+        - mvn clean verify
+    - stage: build
+      if: branch = master AND type IN (push) AND repo = bootique/bootique-aws
+      jdk: oraclejdk8
+      script:
+        - mvn clean source:jar javadoc:javadoc deploy --settings travis_settings.xml
+    - stage: build
+      if: branch = master AND type IN (push) AND repo != bootique/bootique-aws
+      jdk: oraclejdk8
+      script:
+        - mvn clean verify
+
+# travis encrypt -r bootique/bootique-aws "CI_DEPLOY_USERNAME='name'"
+# travis encrypt -r bootique/bootique-aws "CI_DEPLOY_PASSWORD='password'"
+env:
+  global:
+    - secure: "We1OdGPF7B9fir1fuEbNlyBJ78sp6xKfsEOzqP9W4aJjg7NZpOj67WrGU8wwyqTIWn1LW53raQn3ylQiSn9+IbrJTz8zTjfgE+Ge+PZ9guz7F2OpDbPlfVDon9zSl+4w1x3wMrdAkYsGtEwPoShh96neMSxlIkvb6u8s+ds5dg+4zEdT9tiuoMvMwxwqRW/FVbSA77NPs7jUmlw6y+e9FcEGudsi9h9iScfupWKWPlUraS8P/Q4Leguh+fEnYgkPw4KBE3Ib12WF/iDZv/r6/rIX8a660RFXQlaQ3eNflzrTWqjjVoNT9KxotuYsLtMJO+WbIsRMJkOj23f3fPoNd5+HJKFkKjPga6LaIxKWcKb8KPDH8TlfEiunAL4gHJeoPo3EvEwQpMjlqYbOmmk1BIi3YUwtJEzYscB0cu2f+zw2zjQNloH06srh+emvyUayPh32y01J+oZbA0KTYicPcv3ORgtkgckxzx27fKGMVy28srzVdXrhx9rfE2GWLmsZlVWhN92lD2pHYWIx500dgzNLdv09Oli1vI8vUQeAH3+Q0UQXUcNAzqY2KultgX9aCEbnOMk2NJSsE9P1hcQ4uhNXGLrQaNqB0xQZsQZHX1/ixGiYAHANye4VuT9cfQj2fh/y6c0zWUZfHn5oQp0ABxANE2/vF9PsyjSIfGVLwvY="
+    - secure: "D0LZV+b1XfteGwKKIgkTDD1mhoI97XLlSefh2iw3OthFE0uGA8wUFwd4d6jdCLugWizVJ8z29Pe5Fmn4Hk9/1Udb4ewV0SWUmYXyehkjRgH54ZCObE3oWUYHRaOM9YItOfVAiijKaHMdYscOj6uR2V1FLL7jDdp0ADdhFr1eb46hW4X6TTmzHblCe1N9jRFymhFX3MxtGlXgmFPBFERHOANaXe3BVe2x8FCsEP0pmmD0QrWYyMBs86MCLy/qXyqncDTrGkYeDwdHTP7wmVZwjig+Tz+ZD9ktP9k40D3Dk03u/hoQ1MPBr0eThoRXm3KYc5vfX+flti0Mkexc6AsrhS4wxCNy4tp+pnye2Al/axF495dJPW4pfqk1/8ms15ou3UqSDzO+DXxUfN0spacNjznuvp8S4LJoKIkJwk2BjuaXgQkrfQ7sUgsVAeEmBH9AGQCKWLf+eIDLwj1nNMHXngep5tnjRQnxW4GI4Ulv3gVOS5wYFoG867ljUnSxyxANRd7zKLoMCab0GAfbsy5CQs0KtYiD0XEGeNAtLxMtXQxkNhMF8Eboae+JzGgvb8ZrsrWWDhJFgBV52/8NfzwJBdS76DbYFXoQI+AfomMvlxCguT+Iw/4A5ZzbTTMvioyTgAtrVdCcH5jhejPjGV8zsKr3jX1YC2oUlvBN3syAjhI="
