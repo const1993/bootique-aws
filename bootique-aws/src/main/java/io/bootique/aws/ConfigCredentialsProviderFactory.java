@@ -1,6 +1,9 @@
 package io.bootique.aws;
 
+import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSCredentialsProvider;
+import com.amazonaws.auth.AWSStaticCredentialsProvider;
+import com.amazonaws.auth.BasicAWSCredentials;
 import io.bootique.annotation.BQConfig;
 import io.bootique.annotation.BQConfigProperty;
 
@@ -9,28 +12,29 @@ import java.util.Objects;
 @BQConfig
 public class ConfigCredentialsProviderFactory {
 
-    private String accessKeyId;
-    private String secretAccessKey;
+    private String accessKey;
+    private String secretKey;
 
-    @BQConfigProperty("Sets AWS account 'accessKeyId'")
-    public void setAccessKeyId(String accessKeyId) {
-        this.accessKeyId = accessKeyId;
+    @BQConfigProperty("Sets AWS account credentials 'accessKey'")
+    public void setAccessKey(String accessKey) {
+        this.accessKey = accessKey;
     }
 
-    @BQConfigProperty("Sets AWS account 'secretAccessKey'")
-    public void setSecretAccessKey(String secretAccessKey) {
-        this.secretAccessKey = secretAccessKey;
+    @BQConfigProperty("AWS account credentials 'secretKey'")
+    public void setSecretKey(String secretKey) {
+        this.secretKey = secretKey;
     }
 
     public AWSCredentialsProvider createCredentialsProvider() {
-        ConfigCredentials credentials = createCredentials();
-        return new ConfigCredentialsProvider(credentials);
+        AWSCredentials credentials = createCredentials();
+        return new AWSStaticCredentialsProvider(credentials);
     }
 
-    protected ConfigCredentials createCredentials() {
-        Objects.requireNonNull(accessKeyId, "'accessKeyId' is null");
-        Objects.requireNonNull(secretAccessKey, "'secretAccessKey' is null");
-        return new ConfigCredentials(accessKeyId, secretAccessKey);
+    protected AWSCredentials createCredentials() {
+        Objects.requireNonNull(accessKey, "'accessKey' is null");
+        Objects.requireNonNull(secretKey, "'secretKey' is null");
+
+        return new BasicAWSCredentials(accessKey, secretKey);
     }
 
 }
