@@ -10,9 +10,19 @@ public class AwsModule extends ConfigModule {
 
     @Provides
     @Singleton
-    AWSCredentialsProvider provideCredentialsProvider(ConfigurationFactory configurationFactory) {
-        return configurationFactory
-                .config(ConfigCredentialsProviderFactory.class, configPrefix)
-                .createCredentialsProvider();
+    AwsConfigFactory provideConfigFactory(ConfigurationFactory configurationFactory) {
+        return configurationFactory.config(AwsConfigFactory.class, configPrefix);
+    }
+
+    @Provides
+    @Singleton
+    AWSCredentialsProvider provideCredentialsProvider(AwsConfigFactory configFactory) {
+        return configFactory.createCredentialsProvider();
+    }
+
+    @Provides
+    @Singleton
+    AwsConfig provideConfig(AwsConfigFactory configFactory) {
+        return configFactory.createConfig();
     }
 }

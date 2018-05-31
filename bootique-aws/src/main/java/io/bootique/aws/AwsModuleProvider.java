@@ -16,6 +16,6 @@ public class AwsModuleProvider implements BQModuleProvider {
 
     @Override
     public Map<String, Type> configs() {
-        return Collections.singletonMap("aws", ConfigCredentialsProviderFactory.class);
+        return Collections.singletonMap("aws", AwsConfigFactory.class);
     }
 }
